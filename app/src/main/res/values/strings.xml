@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Lille 1</string>
+    <string name="action_settings">Settings</string>
+    <string name="label_type">Type</string>
+    <string name="label_description">Description</string>
+    <string name="reset_data">Remise à zéro de la base</string>
+    <string name="textview_label_type">Type</string>
+    <string name="textview_label_description">Description</string>
+    <string name="button_label_location">Localiser</string>
+    <string name="textview_label_location">Localisation</string>
+    <string name="textview_label_address">Adresse</string>
+    <string name="textview_label_latitude">Latitude</string>
+    <string name="textview_label_longitude">Longitude</string>
+</resources>
