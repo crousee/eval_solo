@@ -21,6 +21,8 @@
                 android:text="@string/textview_label_type"/>
             <Spinner
                 android:id="@+id/spinner_type"
+                android:prompt="@string/spinner_issues_prompt"
+                android:entries="@array/spinner_issues_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView

@@ -46,7 +46,8 @@ public class AddIssueActivity extends AppCompatActivity {
         buttonLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActivityCompat.requestPermissions(AddIssueActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                ActivityCompat.requestPermissions(AddIssueActivity.this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         });
 
@@ -60,7 +61,7 @@ public class AddIssueActivity extends AppCompatActivity {
 
     private void saveIssue() {
         Issue issue = new Issue();
-        issue.setType("TODO");
+        issue.setType(spinnerType.getSelectedItem().toString());
         issue.setDescription(editTextDescription.getText().toString());
         issue.setLatitude(editTextLatitude.getText().toString());
         issue.setLongitude(editTextLongitude.getText().toString());

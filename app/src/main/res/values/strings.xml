@@ -11,4 +11,14 @@
     <string name="textview_label_address">Adresse</string>
     <string name="textview_label_latitude">Latitude</string>
     <string name="textview_label_longitude">Longitude</string>
+
+    <string name="spinner_issues_prompt">Type de problème</string>
+    <string-array name="spinner_issues_type">
+        <item>Arbre à tailler</item>
+        <item>Arbre à abattre</item>
+        <item>Détritus</item>
+        <item>Haie à tailler</item>
+        <item>Mauvaise herbe</item>
+        <item>Autre</item>
+    </string-array>
 </resources>
