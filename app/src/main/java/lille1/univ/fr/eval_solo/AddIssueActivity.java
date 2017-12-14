@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -30,6 +31,7 @@ public class AddIssueActivity extends AppCompatActivity {
     private Button buttonLocation;
     private FloatingActionButton fabValidate;
 
+    private Issue currentIssue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,8 @@ public class AddIssueActivity extends AppCompatActivity {
         editTextAddress = this.findViewById(R.id.edittext_address);
         buttonLocation = this.findViewById(R.id.button_location);
         fabValidate = this.findViewById(R.id.fab);
+
+        fillData();
 
         buttonLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,14 +63,48 @@ public class AddIssueActivity extends AppCompatActivity {
         });
     }
 
+    private void fillData() {
+        Long issueId = getIntent().getLongExtra("issue_id", -1L);
+        if (issueId != -1) {
+            currentIssue = Issue.findById(Issue.class, issueId);
+            editTextDescription.setText(currentIssue.getDescription());
+            editTextLatitude.setText(currentIssue.getLatitude());
+            editTextLongitude.setText(currentIssue.getLongitude());
+            editTextAddress.setText(currentIssue.getAddress());
+            spinnerType.setSelection(getIndex(spinnerType, currentIssue.getType()));
+        }
+    }
+
+    private int getIndex(Spinner spinner, String myString)
+    {
+        int index = 0;
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
     private void saveIssue() {
-        Issue issue = new Issue();
-        issue.setType(spinnerType.getSelectedItem().toString());
-        issue.setDescription(editTextDescription.getText().toString());
-        issue.setLatitude(editTextLatitude.getText().toString());
-        issue.setLongitude(editTextLongitude.getText().toString());
-        issue.setAddress(editTextAddress.getText().toString());
-        issue.save();
+        if (currentIssue != null) {
+            currentIssue.setType(spinnerType.getSelectedItem().toString());
+            currentIssue.setDescription(editTextDescription.getText().toString());
+            currentIssue.setLatitude(editTextLatitude.getText().toString());
+            currentIssue.setLongitude(editTextLongitude.getText().toString());
+            currentIssue.setAddress(editTextAddress.getText().toString());
+            currentIssue.save();
+        }
+        else {
+            Issue issue = new Issue();
+            issue.setType(spinnerType.getSelectedItem().toString());
+            issue.setDescription(editTextDescription.getText().toString());
+            issue.setLatitude(editTextLatitude.getText().toString());
+            issue.setLongitude(editTextLongitude.getText().toString());
+            issue.setAddress(editTextAddress.getText().toString());
+            issue.save();
+        }
         this.finish();
     }
 
