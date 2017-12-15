@@ -30,13 +30,15 @@ public class AddIssueActivity extends AppCompatActivity {
     private EditText editTextAddress;
     private Button buttonLocation;
     private FloatingActionButton fabValidate;
+    private FloatingActionButton fabDelete;
 
     private Issue currentIssue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_issue);
-
+        fabDelete = this.findViewById(R.id.delete_btn);
+        fabDelete.setVisibility(View.INVISIBLE);
         spinnerType = this.findViewById(R.id.spinner_type);
         editTextDescription = this.findViewById(R.id.edittext_description);
         editTextLatitude = this.findViewById(R.id.edittext_latitude);
@@ -54,13 +56,22 @@ public class AddIssueActivity extends AppCompatActivity {
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         });
-
         fabValidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveIssue();
             }
         });
+        if (currentIssue != null) {
+            fabDelete.setVisibility(View.VISIBLE);
+            fabDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    currentIssue.delete();
+                    finish();
+                }
+            });
+        }
     }
 
     private void fillData() {
